@@ -16,7 +16,6 @@ void main() {
     vec3 light_color = vec3(0.8, 0.8, 0.8);
     vec3 light_dir = normalize(u_LightDirection);
     
-    
     /*
     float specular_strength = 1.0;
     float specular_shininess = 32.0;
@@ -24,10 +23,10 @@ void main() {
     vec3 view_dir = normalize(u_ViewPosition - v_worldPosition);
     vec3 reflect_dir = reflect(light_dir, v_worldNormal);
     
+    // Specular exponent:
+    // https://www.desmos.com/calculator/hrkt57yqe5
     float specular_intensity = pow(max(0.0, dot(view_dir, reflect_dir)), u_SpecularShininess);
     vec3 specular_color = u_SpecularStrength * specular_intensity * light_color;
-    
-    
     
     float NdotL = max(0.0, -dot(v_worldNormal, light_dir));
     vec3 diffuse_color = NdotL * light_color;
