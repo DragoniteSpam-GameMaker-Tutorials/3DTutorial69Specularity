@@ -1,5 +1,18 @@
 /// @description Draw the 3D world
 
+if (keyboard_check_pressed(vk_up)) {
+    specular_strength = clamp(specular_strength + 0.1, 0, 1)
+}
+if (keyboard_check_pressed(vk_down)) {
+    specular_strength = clamp(specular_strength - 0.1, 0, 1)
+}
+if (keyboard_check_pressed(vk_right)) {
+    specular_shininess = clamp(specular_shininess + 1, 1, 200)
+}
+if (keyboard_check_pressed(vk_left)) {
+    specular_shininess = clamp(specular_shininess - 1, 1, 200)
+}
+
 gpu_set_zwriteenable(true);
 gpu_set_ztestenable(true);
 draw_clear(c_black);
@@ -27,6 +40,9 @@ draw_tilemap(tilemap_id, 0, 0);
 
 shader_set(shd_basic_3d_stuff);
 shader_set_uniform_f(shader_get_uniform(shd_basic_3d_stuff, "u_LightDirection"), -1, -1, -1);
+shader_set_uniform_f(shader_get_uniform(shd_basic_3d_stuff, "u_ViewPosition"), xfrom, yfrom, zfrom);
+shader_set_uniform_f(shader_get_uniform(shd_basic_3d_stuff, "u_SpecularStrength"), specular_strength);
+shader_set_uniform_f(shader_get_uniform(shd_basic_3d_stuff, "u_SpecularShininess"), specular_shininess);
 
 matrix_set(matrix_world, matrix_build(250, 250, 40, 0, 0, 0, 1, 1, 1));
 vertex_submit(vb_merry, pr_trianglelist, -1);

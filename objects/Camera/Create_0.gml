@@ -45,3 +45,6 @@ for (var i = 0; i < n; i++) {
         y: random_range(0, 900),
     };
 }
+
+specular_strength = 1;
+specular_shininess = 1;
